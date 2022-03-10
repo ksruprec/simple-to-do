@@ -4,8 +4,31 @@
 //value = localStorage.getItem(key)
 
 const nameKey = "name"
+const monthsObj = {
+    0: "Jan",
+    1: "Feb",
+    2: "Mar",
+    3: "Apr",
+    4: "May",
+    5: "Jun",
+    6: "Jul",
+    7: "Aug",
+    8: "Sep",
+    9: "Oct",
+    10: "Nov",
+    11: "Dec",
+}
+const currentDate = new Date()
+const month = currentDate.getMonth()
+const day = currentDate.getDate()
+console.log(currentDate)
+console.log(month)
+console.log(day)
+
+
 
 window.onload = () => {
+    document.getElementById('date').innerHTML = `${monthsObj[month]} ${day}`
     let greetingOutput = document.getElementById("output");
     if (!greetingOutput)
         return;
