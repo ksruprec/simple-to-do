@@ -32,8 +32,6 @@ console.log(month)
 console.log(day)
 
 window.onload = () => {
-    document.getElementById('date').innerHTML = `${monthsObj[month]} ${day}`;
-
     loadTodos()
 }
 
@@ -42,16 +40,18 @@ const loadTodos = () => {
     //get tasks from local storage
     let todos = JSON.parse(localStorage.getItem(todoKey))
     console.log(todos)
-    if (todos) {
-        console.log(todos)
-
-        todos.forEach(todo => {
-            let list = document.getElementById("todo-list")
-            let li = document.createElement('li');
-            li.innerHTML = '<li>' + todo + '</li>'
-            list.insertBefore(li, list.children[0]);
-        })
+    if (todos == null) {
+        todos = []
     }
+
+    let list = document.getElementById("todo-list")
+    list.innerText = ""
+    todos.forEach(todo => {
+        let li = document.createElement('li');
+        li.innerHTML = '<li>' + todo + '</li>'
+        list.insertBefore(li, list.children[0]);
+    })
+    
     
 }
 
