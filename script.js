@@ -58,20 +58,20 @@ const loadTodos = () => {
 //add new tasks to list
 const addTodos = () => {
     let list = document.getElementById("todo-list")
-    let inputTodo = document.getElementById("input-todo").value;
+    let inputTodo = document.getElementById("input-todo");
   
     let li = document.createElement('li');
     li.classList.add("tasks");
-    li.innerHTML = inputTodo;
+    li.innerHTML = inputTodo.value;
     document.getElementById("todo-list").appendChild(li);
-    console.log(inputTodo)
+    console.log(inputTodo.value)
 
-    todoList.push(inputTodo)
+    todoList.push(inputTodo.value)
     localStorage.setItem(todoKey, JSON.stringify(todoList));
 
     list.insertBefore(li, list.children[0]);
     // clear input
-    task.value = "";
+    inputTodo.value = "";
     
 }
 
