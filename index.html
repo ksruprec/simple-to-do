@@ -8,13 +8,20 @@
     <title>To Do List</title>
 </head>
 <body>
-    <h2>To Do</h2>
-    <h3>Date: <span id="date"></span></h3>
-    <input id="input-name" placeholder="name"/>
-    <button onclick="showGreeting();">Submit</button>
-    <div>
-      <p id="output"></p>
+    <!-- <div id="greeting-div">
+        <h1 id="output"></h1>
+        <input id="input-name" placeholder="Enter name"/>
+        <button onclick="showGreeting();">Submit</button>
+    </div> -->
+  
+    <div id="todo-div">
+        <h3>To Do for <span id="date"></span></h3>
+        <input id="input-todo" placeholder="Enter task"/>
+        <button id="add-button" onclick="addTodos();return false">Add</button>
+        <ul id="todo-list"></ul>
     </div>
+  
+    
     <script src="script.js"></script>
 </body>
 </html>
