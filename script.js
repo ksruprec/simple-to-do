@@ -35,39 +35,23 @@ window.onload = () => {
     setDate()
 }
 
-// Set up the event listeners to watch for a person clicking save task
+// Set up the event listeners to watch for a person clicking add button
 document.getElementById("add-button").onclick = function(event) {
     event.preventDefault();
     let task = todoInput.value;
-    // Save their new task in an array
     let id = Math.ceil(Math.random() * 1000000)
     todos.push({id: id, task, completed: false})
     addTodos(id, task)
     saveTodos()
 }
 
-// Append their new task to our #to-do-list
-const addTodos = (id, task, completedStatus=false) => {
-    
-    let li = document.createElement('li');
-
-    if (completedStatus) {
-        li.classList.add('completed');
+todoInput.addEventListener("keyup", function(event) {
+    let key = event.key
+    if (key === "Enter") {
+        event.preventDefault();
+        document.getElementById("add-button").click();
     }
-
-    li.addEventListener('click', function () {
-        completeTodo(id)
-    })
-
-    li.innerText = task
-    todoList.appendChild(li);
-    
-}
-
-// Save the current array of tasks in localStorage
-const saveTodos = () => {
-    localStorage.setItem("todos", JSON.stringify(todos))
-}
+});
 
 const loadTodos = () => {
     todos = JSON.parse(localStorage.getItem("todos"))
@@ -81,6 +65,33 @@ const loadTodos = () => {
     })
 }
 
+// Append their new task to our #todo-list
+const addTodos = (id, task, completedStatus=false) => {
+    if (task !== '') {
+        let li = document.createElement('li');
+
+        if (completedStatus) {
+            li.classList.add('completed');
+        }
+    
+        li.addEventListener('click', function () {
+            completeTodo(id)
+        })
+    
+        li.innerText = task
+        // todoList.appendChild(li);
+        todoList.insertBefore(li, todoList.children[0])
+    
+        todoInput.value = ''
+    }
+}
+
+// Save the current array of tasks in localStorage
+const saveTodos = () => {
+    localStorage.setItem("todos", JSON.stringify(todos))
+}
+
+//function that is triggered when user clicks a task
 const completeTodo = (id) => {
     for(let i = 0; i < todos.length; i++){
         if (id === todos[i].id) {
@@ -90,137 +101,3 @@ const completeTodo = (id) => {
     saveTodos()
     loadTodos()
 }
-
-
-// //local storage variables
-// const todoKey = "todos"
-
-// let todoList = []
-
-
-
-// //grab things from DOM
-// const addButton = document.getElementById("add-button")
-// const inputTodo = document.getElementById("input-todo")
-// const todoList = document.getElementById("todo-list")
-
-// // onclick="addTodos();return false"
-// //event listener to submit button
-// addButton.addEventListener('sumbit', function(event) {
-//     event.preventDefault();
-//     addTodos(inputTodo.value)
-// })
-
-// // load list of todos in local storage
-// const loadTodos = () => {
-//     //get tasks from local storage
-//     let todos = JSON.parse(localStorage.getItem(todoKey))
-//     console.log(todos)
-//     if (todos == null) {
-//         todos = []
-//     }
-
-//     todoList.innerHTML = "";
-//     todoList.forEach(function(todo){
-//         const checked = todo.completed ? 'checked': null;
-//     })
-
-//     todos.forEach(todo => {
-//         let li = document.createElement('li');
-//         li.innerHTML = '<li>' + todo + '</li>'
-//         list.insertBefore(li, list.children[0]);
-//     })
-    
-    
-// }
-
-// //add new tasks to list
-// const addTodos = (item) => {
-//     let id = Math.ceil(Math.random() * 1000000)
-//     if (item !== "") {
-//         const todo = {
-//             id: id
-//         }
-//     }
-
-//     //render todos
-//     let li = document.createElement('li');
-//     li.classList.add("tasks");
-//     li.innerHTML = inputTodo.value;
-//     document.getElementById("todo-list").appendChild(li);
-
-//     //save tasks
-//     todoList.push(inputTodo.value)
-//     localStorage.setItem(todoKey, JSON.stringify(todoList));
-
-//     list.insertBefore(li, list.children[0]);
-//     // clear input
-//     inputTodo.value = "";
-    
-// }
-
-// // const addTodos = (task) => {
-// //     //generate random ids
-// //     let id = Math.ceil(Math.random() * 1000000)
-// //     if (task !== "") {
-// //         const todo = {
-// //             id: id,
-// //             name: task,
-// //             completed: false
-// //         };
-
-// //         todoList.push(todo);
-// //         // loadTodos(todoList)
-
-// //         inputTodo.value = "";
-// //     }
-// // }
-
-
-
-// // const addTodos = (task) => {
-// //     let list = document.getElementById("todo-list")
-// //     let inputTodo = document.getElementById("input-todo");
-    
-// //     if ()
-
-// //     //render todos
-// //     let li = document.createElement('li');
-// //     li.classList.add("tasks");
-// //     li.innerHTML = inputTodo.value;
-// //     document.getElementById("todo-list").appendChild(li);
-
-// //     //save tasks
-// //     todoList.push(inputTodo.value)
-// //     localStorage.setItem(todoKey, JSON.stringify(todoList));
-
-// //     list.insertBefore(li, list.children[0]);
-// //     // clear input
-// //     inputTodo.value = "";
-    
-// // }
-
-// // const loadTodos = () => {
-// //     //get tasks from local storage
-// //     let todos = JSON.parse(localStorage.getItem(todoKey))
-// //     console.log(todos)
-// //     if (todos == null) {
-// //         todos = []
-// //     }
-
-// //     todoList.innerHTML = "";
-// //     todoList.forEach(function(todo){
-// //         const checked = todo.completed ? 'checked': null;
-
-// //         let li = document.createElement('li');
-// //         li.setAttribute('class', 'todo');
-// //         li.setAttribute('todo-key', todo.id);
-// //         if (todo.completed === true) {
-// //             li.classList.add('checked');
-// //         }
-// //         li.innerHTML = `<input type="checkbox" class="checkbox" ${checked}>
-// //         ${todo.name}
-// //         <button class="delete-button">X</button>`
-// //         todoList.insertBefore(li, list.children[0]);
-// //     });  
-// // }
